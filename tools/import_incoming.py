@@ -2,6 +2,7 @@
 from pathlib import Path
 import json,hashlib,re,zipfile,io,xml.etree.ElementTree as ET,subprocess,tempfile
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from pypdf import PdfReader
 from bs4 import BeautifulSoup
 import openpyxl
@@ -143,7 +144,7 @@ for f in files:
             r['kind']='image';r['status']='recognized_automatically';data['media'][fid]=r
         else:data['files'].append(r)
     except Exception as e:issues.append({'file':rel,'reason':type(e).__name__})
-data['build']=datetime.now().strftime('%Y-%m-%d');data['incomingIssues']=issues
+data['build']=max(data.get('build',''),datetime.now(ZoneInfo('Europe/Moscow')).strftime('%Y-%m-%d'));data['incomingIssues']=issues
 data['manifest']['verified_total']=sum(x.get('status')=='verified' for x in data['tasks'])
 data['manifest']['course_verified']=sum(x.get('status')=='verified' and x.get('source_kind')=='course' for x in data['tasks'])
 (ROOT/'data.js').write_text('window.KNOWLEDGE_BASE='+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';',encoding='utf-8')
