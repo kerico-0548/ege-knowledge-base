@@ -1,0 +1,43 @@
+name: Обновить базу знаний
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Подготовить чтение документов
+        run: |
+          python -m pip install -q beautifulsoup4 pypdf openpyxl
+          if find incoming -type f | grep -qE '\.(pdf|png|jpg|jpeg|docx|pptx)$'; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq tesseract-ocr-rus poppler-utils
+          fi
+      - name: Добавить новые материалы
+        run: python tools/import_incoming.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Опубликовать
+        id: deployment
+        uses: actions/deploy-pages@v4

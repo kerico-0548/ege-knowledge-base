@@ -1,0 +1,46 @@
+[
+  {
+    "package": "fflate",
+    "version": "0.8.3",
+    "source": "https://registry.npmjs.org/fflate/-/fflate-0.8.3.tgz",
+    "files": 2
+  },
+  {
+    "package": "pdfjs-dist",
+    "version": "6.5.438",
+    "source": "https://registry.npmjs.org/pdfjs-dist/-/pdfjs-dist-6.5.438.tgz",
+    "files": 34
+  },
+  {
+    "package": "katex",
+    "version": "0.19.1",
+    "source": "https://registry.npmjs.org/katex/-/katex-0.19.1.tgz",
+    "files": 64
+  },
+  {
+    "package": "tesseract.js",
+    "version": "7.0.0",
+    "source": "https://registry.npmjs.org/tesseract.js/-/tesseract.js-7.0.0.tgz",
+    "files": 3
+  },
+  {
+    "package": "tesseract.js-core",
+    "version": "7.0.0",
+    "source": "https://registry.npmjs.org/tesseract.js-core/-/tesseract.js-core-7.0.0.tgz",
+    "files": 13
+  },
+  {
+    "package": "@tesseract.js-data/rus",
+    "version": "1.0.0",
+    "source": "https://registry.npmjs.org/@tesseract.js-data/rus/-/rus-1.0.0.tgz",
+    "variant": "4.0.0_best_int",
+    "files": 1
+  },
+  {
+    "package": "@tesseract.js-data/eng",
+    "version": "1.0.0",
+    "source": "https://registry.npmjs.org/@tesseract.js-data/eng/-/eng-1.0.0.tgz",
+    "variant": "4.0.0_best_int",
+    "files": 1
+  }
+]

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Задачи ЕГЭ по информатике, авторские методы, код и материалы курса в единой базе знаний.">
+  <meta name="theme-color" content="#16394b">
+  <title>База знаний · Информатика</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <script src="vendor/fflate/fflate.js" defer></script>
+  <script src="vendor/katex/katex.min.js" defer></script><script src="vendor/katex/contrib/auto-render.min.js" defer></script>
+  <script src="config.js" defer></script><script src="data.js" defer></script><script src="patterns.js" defer></script>
+  <script src="importers.js" defer></script><script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+<aside id="sidebar" class="sidebar" aria-label="Разделы базы">
+  <a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">{ }</span><span>База знаний<small>Информатика · ЕГЭ</small></span></a>
+  <div class="nav-label">РАБОЧЕЕ ПРОСТРАНСТВО</div>
+  <nav id="nav" class="nav"></nav>
+  <div class="nav-label task-label">ЗАДАНИЯ</div><nav id="task-nav" class="task-nav" aria-label="Номера заданий"></nav>
+  <div class="sidebar-bottom"><button class="text-button" id="backup-sidebar">Резервная копия</button><span>Твои методы. Единая структура.</span></div>
+</aside>
+<div class="app-shell">
+  <header class="topbar">
+    <button id="menu-button" class="icon-button menu-button" aria-label="Открыть меню" aria-expanded="false">☰</button>
+    <label class="search-box"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="global-search" type="search" placeholder="Найти задачу, метод или файл" autocomplete="off" aria-label="Поиск по базе"><kbd>/</kbd></label>
+    <button class="button primary" id="add-button"><span aria-hidden="true">＋</span> Добавить</button>
+    <button class="profile-button" id="workspace-button" title="Мои материалы и сохранённые правки" aria-label="Мои материалы и сохранённые правки">МК</button>
+  </header>
+  <main id="main" tabindex="-1"><div class="loading">Открываю базу знаний…</div></main>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="add-dialog" class="add-dialog"><div class="dialog-head"><div><h2>Добавить в базу</h2><p>Файл, заметку или новый разбор</p></div><button class="icon-button close-dialog" aria-label="Закрыть">×</button></div><div id="add-content"></div></dialog>
+<input id="file-input" type="file" multiple hidden accept=".txt,.py,.md,.json,.csv,.tsv,.docx,.pptx,.xlsx,.xls,.pdf,.png,.jpg,.jpeg,.webp,.svg,.kum,.step">
+<input id="backup-input" type="file" hidden accept=".zip,.json">
+<noscript>Для поиска, редактирования кода и загрузки файлов включи JavaScript в браузере.</noscript>
+</body></html>
