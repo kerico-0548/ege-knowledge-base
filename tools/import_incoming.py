@@ -6,6 +6,7 @@ from zoneinfo import ZoneInfo
 from pypdf import PdfReader
 from bs4 import BeautifulSoup
 import openpyxl
+from branding import apply_branding
 
 ROOT=Path(__file__).resolve().parents[1];BASE=ROOT/'data'/'base.json'
 data=json.loads(BASE.read_text(encoding='utf-8'));incoming=ROOT/'incoming';issues=[]
@@ -147,5 +148,6 @@ for f in files:
 data['build']=max(data.get('build',''),datetime.now(ZoneInfo('Europe/Moscow')).strftime('%Y-%m-%d'));data['incomingIssues']=issues
 data['manifest']['verified_total']=sum(x.get('status')=='verified' for x in data['tasks'])
 data['manifest']['course_verified']=sum(x.get('status')=='verified' and x.get('source_kind')=='course' for x in data['tasks'])
+data=apply_branding(data)
 (ROOT/'data.js').write_text('window.KNOWLEDGE_BASE='+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';',encoding='utf-8')
 print(json.dumps({'incoming_files':len(files),'tasks':len(data['tasks']),'files':len(data['files']),'issues':issues},ensure_ascii=False))
