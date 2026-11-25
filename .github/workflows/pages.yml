@@ -34,10 +34,26 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.retry_deployment.outputs.page_url || steps.final_deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Опубликовать
         id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Подождать после сбоя публикации
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 20
+      - name: Повторить публикацию
+        if: steps.deployment.outcome == 'failure'
+        id: retry_deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Подождать перед последней попыткой
+        if: steps.retry_deployment.outcome == 'failure'
+        run: sleep 40
+      - name: Последняя попытка публикации
+        if: steps.retry_deployment.outcome == 'failure'
+        id: final_deployment
         uses: actions/deploy-pages@v4
