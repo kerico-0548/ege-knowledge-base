@@ -31,4 +31,13 @@
 .answer p{font-size:12px;margin-top:10px;color:#967a8d}.answer strong{overflow-wrap:anywhere;white-space:pre-line}
 .case-groups{margin-top:24px;display:grid;gap:10px}.case-group{display:flex;align-items:center;gap:13px;min-width:0}.case-number{font-size:12px;color:#91739e;min-width:38px}.case-group .case-switch{margin:0;display:flex;flex-wrap:wrap;gap:7px}.case-switch a{font-size:11px;padding:8px 11px}
 .pdf-source-lines{font:inherit;line-height:1.8}.pdf-source-lines p{margin:0 0 .85em}.pdf-source-lines .source-line{white-space:normal;line-height:1.6}
+.case-source-legend{margin-top:12px;max-width:640px;color:#625269;font-size:12px}
+.case-source-legend summary{width:fit-content;max-width:100%;padding:5px 0;color:#764063;cursor:pointer}
+.case-source-guide{margin-top:6px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.case-source-guide dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:8px 16px;margin:0 0 12px}
+.case-source-guide dl div{display:grid;grid-template-columns:42px 1fr;gap:8px;align-items:baseline}
+.case-source-guide dt{color:var(--wine);font-weight:600}
+.case-source-guide dd{margin:0}
+.case-source-guide a{display:inline-flex;align-items:center;gap:5px;margin-top:8px;color:var(--wine);text-decoration:underline;text-underline-offset:3px}
+.case-source-guide a svg{width:12px;height:12px}
 @media(max-width:650px){.source-statement{font-size:15px;line-height:1.75}.source-statement th,.source-statement td{padding:7px 9px}.source-statement table{font-size:12px}.source-statement pre{font-size:12px;padding:13px}.case-switch a{padding:8px;font-size:10px}.case-group{gap:7px}.case-number{min-width:31px}.source-figure{padding:5px}.pdf-source-lines{font-size:16px}}

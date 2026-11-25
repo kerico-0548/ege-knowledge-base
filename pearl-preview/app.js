@@ -34,7 +34,71 @@ function home(){return pageHeading('База знаний','Задачи, тво
 function homeResults(){const el=document.querySelector('#home-results');if(!el)return;let html='';for(const m of ['hand','python','excel']){if(homeMethod!=='all'&&homeMethod!==m)continue;const topics=D.topics.filter(t=>t.methods.includes(m)&&(!homeNumber||t.id===homeNumber)&&(!homeSearch.trim()||homeSearch.toLowerCase().split(/\s+/).every(w=>(t.id+' '+t.title+' '+t.subtitle+' '+methods[m]).toLowerCase().includes(w))));if(!topics.length)continue;html+='<section class="topic-group"><header class="group-heading"><span>'+I(m)+'</span><h2>'+methodTitles[m]+'</h2><small>'+topics.length+' '+(topics.length===1?'тема':'темы')+'</small></header><div class="topic-grid">'+topics.map(t=>topicCard(t,m)).join('')+'</div></section>'}el.innerHTML=html||'<div class="empty-state">Ничего не найдено. Попробуй другой запрос или выбери все способы.</div>'}
 function graph(c){const table=c.visuals.find(v=>v.type==='table'),edges=c.visuals.find(v=>v.type==='edges');if(!table||!edges)return '';let pos={F:[30,130],C:[90,25],B:[260,45],E:[245,160],A:[130,225],D:[165,105]};const nodes=[...new Set(edges.edges.flat())];if(nodes.some(n=>!pos[n]))pos=Object.fromEntries(nodes.map((n,i)=>[n,[150+105*Math.cos(i*2*Math.PI/nodes.length),130+105*Math.sin(i*2*Math.PI/nodes.length)]]));pos=Object.fromEntries(Object.entries(pos).filter(([n])=>nodes.includes(n)));return '<div class="diagram"><div class="table-wrap"><table><thead><tr>'+table.columns.map(x=>'<th>'+E(x)+'</th>').join('')+'</tr></thead><tbody>'+table.rows.map(r=>'<tr>'+r.map(x=>'<td>'+E(x)+'</td>').join('')+'</tr>').join('')+'</tbody></table></div><svg class="road-graph" viewBox="0 0 300 260" role="img" aria-label="Граф дорог">'+edges.edges.map(([a,b])=>'<line x1="'+pos[a][0]+'" y1="'+pos[a][1]+'" x2="'+pos[b][0]+'" y2="'+pos[b][1]+'"/>').join('')+Object.entries(pos).map(([n,[x,y]])=>'<circle cx="'+x+'" cy="'+y+'" r="3"/><text x="'+(x+(n==='F'?-20:9))+'" y="'+(y+(n==='A'?20:-8))+'">'+n+'</text>').join('')+'</svg></div>'}
 function condition(c){const body=c.conditionHtml||'<p>'+E(c.original)+'</p>';return '<h2>Условие задачи</h2><div class="source-statement">'+body+'</div>'+(c.appendVisuals?nativeVisuals(c):'')+(c.sourceImages?.length?'<details class="original source-original"><summary>Рисунок или исходное оформление</summary>'+c.sourceImages.join('')+'</details>':'')+(c.verificationNote?'<div class="verification-note">'+E(c.verificationNote)+'</div>':'')+'<details class="answer"><summary>Показать ответ <span>+</span></summary><strong>'+E(c.answer||'Ответ пока не подтверждён')+'</strong>'+(c.status!=='verified'?'<p>Проверка этого примера не завершена.</p>':'')+'</details>'}
-function caseChoices(c,t){const groups=t.id==='19-21'?['19','20','21']:[c.number];return '<nav class="case-groups" aria-label="Примеры темы">'+groups.map(n=>'<div class="case-group">'+(groups.length>1?'<span class="case-number">№ '+n+'</span>':'')+'<div class="case-switch">'+t.cases.map(caseBy).filter(x=>x.number===n).map((x,i)=>'<a href="'+taskLink(x,x.methods[route.method]?route.method:Object.keys(x.methods)[0])+'" aria-current="'+(x.id===c.id)+'" title="'+E(x.title)+'">Пример '+(i+1)+'</a>').join('')+'</div></div>').join('')+'</nav>'}
+const caseSources=[
+  ['Демо','Демоверсия',/демоверсия|демо/iu],
+  ['Откр','Открытый вариант',/открытый вариант|openfipi/iu],
+  ['Апроб','Апробация',/апробация|апроб/iu],
+  ['ЕГКР','Единая городская контрольная работа',/ЕГКР/iu],
+  ['Доср','Досрочная волна',/досрочная волна|досрочный вариант|доср/iu],
+  ['Осн','Основная волна',/основная волна/iu],
+  ['Рез','Резервная волна или резервный день',/резервная волна|резервный день/iu],
+  ['Перес','Пересдача',/пересдача/iu],
+  ['Проб','Пробный вариант',/пробный вариант|пробный|пробник/iu],
+  ['Подб','Подборка задач',/подборка/iu],
+];
+
+const shortCaseTitles={
+  stepik_5658880:'3-й байт',
+  author_png_12_1:'3 и 8',
+  author_png_12_2:'Сумма',
+  kerya_25_mask1917:'Маска',
+  kerya_25_primes:'Простые',
+  kerya_26_books:'Книги',
+  kerya_26_hair:'Запись',
+};
+
+function caseTab(x){
+  const number=[x.title,x.source,x.original].map(s=>s?.match(/(?:^|КОМПЕГЭ\s+)№\s*(\d+(?:_\d+|[a-c])?)/iu)?.[1]).find(Boolean)
+    ||x.id.match(/^fipi\d{4}_(\d+[a-c]?)$/i)?.[1]
+    ||x.id.match(/^kerya_24_(\d+)$/)?.[1];
+  for(const [short,full,pattern] of caseSources){
+    for(const metadata of [x.source,x.title]){
+      const match=metadata.match(pattern);
+      if(!match)continue;
+      const rest=metadata.slice(match.index+match[0].length);
+      const date=rest.match(/^\s*(?:(?:ФИПИ)\s+)?(?:(\d{1,2}\.\d{1,2}\.)\s*)?(20\d{2}|\d{2})(?![\d.])/iu);
+      if(!date||(!date[1]&&date[2].length!==4))continue;
+      const year=date[2].length===2?'20'+date[2]:date[2];
+      return {short,year,full,number};
+    }
+  }
+  const short=number?'№'+number:shortCaseTitles[x.id]||x.title;
+  return {short,number};
+}
+
+function caseSourceLegend(){
+  const items=caseSources.map(([short,full])=>'<div><dt>'+E(short)+'</dt><dd>'+E(full)+'</dd></div>').join('');
+  return '<details class="case-source-legend"><summary>Что значат сокращения</summary><div class="case-source-guide"><dl>'+items+'</dl><p>Две цифры справа — год. Например, «Демо 26» — демоверсия 2026 года. Когда источник и год совпадают, рядом указан номер задачи. Если источник или год неизвестен, на вкладке показан номер или короткое название.</p><a href="https://kompege.ru/archive" target="_blank" rel="noopener">Архив вариантов КОМПЕГЭ '+I('link')+'</a></div></details>';
+}
+
+function caseChoices(c,t){
+  const groups=t.id==='19-21'?['19','20','21']:[c.number];
+  const rows=groups.map(n=>{
+    const tabs=t.cases.map(caseBy).filter(x=>x.number===n).map(x=>({x,...caseTab(x)}));
+    const links=tabs.map(tab=>{
+      const {x,short,year,full,number}=tab;
+      const repeated=year&&tabs.some(other=>other!==tab&&other.short===short&&other.year===year);
+      const suffix=repeated&&number?' · №'+number:'';
+      const label=short+(year?' '+year.slice(-2):'')+suffix;
+      const tooltip=(year?full+' '+year+' — ':'')+x.title;
+      const method=x.methods[route.method]?route.method:Object.keys(x.methods)[0];
+      return '<a href="'+taskLink(x,method)+'" aria-current="'+(x.id===c.id)+'" aria-label="'+E(label+' — '+tooltip)+'" title="'+E(tooltip)+'">'+E(label)+'</a>';
+    }).join('');
+    const heading=groups.length>1?'<span class="case-number">№ '+n+'</span>':'';
+    return '<div class="case-group">'+heading+'<div class="case-switch">'+links+'</div></div>';
+  }).join('');
+  return '<nav class="case-groups" aria-label="Примеры темы">'+rows+'</nav>'+caseSourceLegend();
+}
 
 function solution(c,m){const data=c.methods[m];return '<ol class="solution-steps">'+data.steps.map(s=>'<li><h3>'+E(s.title)+'</h3><p>'+E(s.text)+'</p></li>').join('')+'</ol>'+(data.check?'<div class="check-note">'+I('check')+'<p>'+E(data.check)+'</p></div>':'')+(data.code?'<button class="button open-code" data-view="code">'+I(m==='excel'?'excel':'python')+' '+(m==='excel'?'Открыть формулы':'Открыть код')+I('arrow')+'</button>':'')}
 function highlight(text){const re=/(#[^\n]*|(?:[rfbu])?(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|\b(?:from|import|for|in|if|else|elif|def|return|and|or|not|break|while|True|False|None|print|range|len|int|str|sum|min|max|any|all|product)\b|\b\d+(?:\.\d+)?\b)/g;let out='',at=0;for(const x of text.matchAll(re)){const t=x[0],cls=t[0]==='#'?'comment':/^[rfbu]?["']/.test(t)?'string':/^\d/.test(t)?'number':'keyword';out+=E(text.slice(at,x.index))+'<span class="token-'+cls+'">'+E(t)+'</span>';at=x.index+t.length}return out+E(text.slice(at))+'\n'}
