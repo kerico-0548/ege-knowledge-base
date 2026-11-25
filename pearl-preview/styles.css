@@ -40,4 +40,17 @@
 .case-source-guide dd{margin:0}
 .case-source-guide a{display:inline-flex;align-items:center;gap:5px;margin-top:8px;color:var(--wine);text-decoration:underline;text-underline-offset:3px}
 .case-source-guide a svg{width:12px;height:12px}
+.case-group{align-items:baseline}
+.case-picker{min-width:0;flex:1}
+.more-cases{margin-top:5px;font-size:12px;color:var(--wine)}
+.more-cases summary{width:fit-content;cursor:pointer;padding:6px 2px}
+.more-cases summary span{margin-left:4px}
+.more-cases[open] summary span{display:none}
+.more-cases .case-switch{margin-top:5px}
+.case-filter{display:block;margin:4px 0 8px}
+.case-search{width:min(100%,270px);padding:7px 10px;color:#3c2846;border:1px solid var(--line);border-radius:6px;background:#fff}
+.more-cases [hidden]{display:none}
+.case-no-results{font-size:12px;color:#625269}
+.source-answer{margin-top:12px;color:#625269}
+.solution-steps p{white-space:pre-line}
 @media(max-width:650px){.source-statement{font-size:15px;line-height:1.75}.source-statement th,.source-statement td{padding:7px 9px}.source-statement table{font-size:12px}.source-statement pre{font-size:12px;padding:13px}.case-switch a{padding:8px;font-size:10px}.case-group{gap:7px}.case-number{min-width:31px}.source-figure{padding:5px}.pdf-source-lines{font-size:16px}}
