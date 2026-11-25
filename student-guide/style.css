@@ -1,144 +1,101 @@
 :root {
-  color-scheme: light;
-  --bg: #fff; --paper: #fff; --soft: #f7f4f9; --text: #201d32; --muted: #605d71;
-  --line: #e3dfe7; --link: #6a386c; --focus: #a54472;
-  --accent: #863f70; --tint: #f5eaf1; --pill: #fff;
-  --shadow: 0 12px 38px -32px #2c1239;
+  color-scheme:light; --bg:#fff; --text:#252637; --heading:#24243b; --muted:#585a69; --line:#e4e1e6; --soft:#f8f7fa;
+  --accent:#793653; --pale:#f8f0f3; --edge:#c89aaa; --navy:#35324f; --key:#8a5571;
 }
 :root[data-theme=dark] {
-  color-scheme: dark;
-  --bg: #101421; --paper: #171c2d; --soft: #1c2033; --text: #f2edf6; --muted: #b4afc4;
-  --line: #35384b; --link: #e2b5ed; --focus: #ffacdc; --pill: #232637;
-  --shadow: none;
+  color-scheme:dark; --bg:#151925; --text:#eae7ec; --heading:#f7f2f4; --muted:#b7b7c4; --line:#3a3a47; --soft:#1c2130;
+  --accent:#edb4cc; --pale:#302432; --edge:#946b83; --navy:#d4c8e6; --key:#d7acc4;
 }
-[data-chapter=notes] {--accent: #853958; --tint: #faebf0; --glow: #81365f}
-[data-chapter=rest] {--accent: #574294; --tint: #efebfb; --glow: #50478d}
-[data-chapter=preparation] {--accent: #3c5688; --tint: #eaf0fa; --glow: #3e507d}
-[data-chapter=wellbeing] {--accent: #913c54; --tint: #fbeaf0; --glow: #8a3a5b}
-[data-chapter=interesting] {--accent: #773b91; --tint: #f4eafb; --glow: #783f8b}
-[data-theme=dark] [data-chapter=notes] {--accent: #f5b1c9; --tint: #382638}
-[data-theme=dark] [data-chapter=rest] {--accent: #c9b9ff; --tint: #302b46}
-[data-theme=dark] [data-chapter=preparation] {--accent: #b2caff; --tint: #253148}
-[data-theme=dark] [data-chapter=wellbeing] {--accent: #ffc0cd; --tint: #3b2936}
-[data-theme=dark] [data-chapter=interesting] {--accent: #e6b6f7; --tint: #342840}
-* {box-sizing: border-box}
-html {scroll-padding-top: 12px}
-body {margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 "Segoe UI",system-ui,sans-serif}
-a {color: var(--link); text-underline-offset: .18em}
-button,input {font: inherit}
-button {cursor: pointer}
-:focus-visible {outline: 3px solid var(--focus); outline-offset: 4px}
-.shell {width: min(1100px,calc(100% - 64px)); margin-inline: auto}
-.skip {position: absolute; left: 12px; top: -100px; z-index: 10; padding: 10px; background: var(--paper)}
-.skip:focus {top: 8px}
-.top {border-bottom: 1px solid var(--line); background: var(--paper)}
-.topin,.brand,.theme,.section-head,.overline,.lesson-id,.crumb,.footer {display: flex; align-items: center}
-.topin {min-height: 66px; justify-content: space-between; gap: 12px}
-.brand {text-decoration: none; gap: 11px; color: var(--text); font-weight: 760; letter-spacing: -.02em}
-.brand-sub {color: var(--muted); font-weight: 500}
-.logo {display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px 10px 10px 3px; background: linear-gradient(140deg,#9d426d,#492a67 72%); color: #fff; font: italic 800 23px/1 Georgia,serif}
-.theme {border: 1px solid var(--line); border-radius: 999px; background: var(--soft); color: var(--text); padding: 7px 14px; gap: 7px; font-size: 14px; min-height: 40px}
-[hidden] {display: none !important}
-.mode-icon {font: 20px/1 Georgia,serif}
-.mast {position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: minmax(0,1fr) 32%; align-items: center;
- background: radial-gradient(ellipse at 93% 115%,var(--glow,#7d365f) 0%,transparent 53%),linear-gradient(110deg,#141a30 12%,#24223f 52%,#392541);
- color: #fff; border-radius: 22px; padding: clamp(32px,5vw,62px); min-height: 226px}
-.home-mast {margin-top: 28px}
-.mast-copy {position: relative; z-index: 2}
-.overline {margin: 0 0 13px; gap: 9px; color: #ebd9eb; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase}
-.dot {width: 8px; height: 8px; border-radius: 50%; background: #ec9db9}
-h1,h2,h3,p,ol {margin-top: 0}
-h1,h2,h3,.card-copy strong {text-wrap: balance}
-.mast h1,.reader-head h1 {font-weight: 720; line-height: 1.08; letter-spacing: -.048em; margin: 0}
-.home-mast h1 {font-size: clamp(42px,5.4vw,72px)}
-.inner-mast h1 {font-size: clamp(35px,4.5vw,59px)}
-.intro {color: #f0e6f0; max-width: 60ch; line-height: 1.55; margin: 16px 0 0; font-size: clamp(16px,1.6vw,19px)}
-.paper-btn {display: inline-flex; gap: 20px; align-items: center; margin-top: 25px; background: #ffedf4; color: #42243f; padding: 10px 18px; border-radius: 9px; text-decoration: none; font-weight: 650}
-.cover-art {position: relative; width: 100%; height: 175px; justify-self: end; pointer-events: none}
-.orbit {position: absolute; width: 260px; height: 115px; top: 27%; left: 50%; border: 1px solid #c991c37a; border-radius: 50%; transform: translateX(-50%) rotate(-24deg)}
-.book {position: absolute; left: 50%; top: 50%; width: 105px; height: 138px; border-radius: 5px 13px 13px 6px; border: 1px solid #d89cba; box-shadow: 3px 3px 0 #e8c3cc,5px 6px 0 #693858}
-.book-back {background: linear-gradient(115deg,#513666,#86649a); transform: translate(-31%,-50%) rotate(16deg); border-color: #bfabc9}
-.book-front {display: flex; flex-direction: column; justify-content: space-around; align-items: center; padding: 12px 7px 12px 14px; transform: translate(-64%,-50%) rotate(-13deg); background: linear-gradient(100deg,#793958 0 9%,#ac5374 10%,#a74d76 65%,#823c63)}
-.book-front:before {content: ""; position: absolute; inset: 7px 6px 7px 12px; border: 1px solid #ebbcce80; border-radius: 1px 7px 7px 1px}
-.book-front i {width: 42%; border-top: 1px solid #ffdfeb; opacity: .78}
-.book-front b {font: 35px/1 Georgia,serif; color: #ffe6d8; filter: drop-shadow(0 2px 4px #633858)}
-.spark {color: #f7c4d4; font-style: normal; position: absolute}
-.spark.a {left: 9%; top: 26%; font-size: 25px}.spark.b {right: 8%; bottom: 22%; font-size: 18px}
-.section-head {justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px}
-.section-head h2,.reader h2 {margin: 0; line-height: 1.23; letter-spacing: -.03em}
-.section-head h2 {font-size: clamp(23px,3vw,30px)}
-.section-head > span,.card-copy small,.footer,.crumb,.abstract,.card-copy > span,.resources span {color: var(--muted)}
-.catalog,.resource-area {margin-top: 38px}
-.chapters {display: grid; grid-template-columns: 1fr 1fr; gap: 12px}
-.chapter-card,.resources a,.toc a {color: var(--text); text-decoration: none}
-.chapter-card {display: flex; align-items: center; gap: 15px; min-width: 0; border: 1px solid var(--line); border-radius: 14px; padding: 21px; box-shadow: var(--shadow); background: var(--paper)}
-.chip {display: inline-grid; place-items: center; flex: 0 0 auto; width: 48px; height: 48px; background: var(--tint); border: 1px solid color-mix(in srgb,var(--accent) 18%,transparent); border-radius: 13px; font-size: 24px}
-.card-copy {flex: 1; min-width: 0; display: grid; gap: 1px}
-.card-copy small,.nextlink small {font-size: 12px; font-weight: 600}
-.card-copy strong {font-size: 20px; letter-spacing: -.025em; line-height: 1.26}
-.card-copy > span,.resources span {font-size: 14px}
-.arrow,.toc b {color: var(--accent); font-size: 20px}
-.resources {display: grid; grid-template-columns: repeat(3,1fr); gap: 12px}
-.resources a {display: grid; align-content: start; gap: 3px; background: var(--soft); border: 1px solid var(--line); border-radius: 12px; padding: 16px}
-.crumb {flex-wrap: wrap; gap: 8px; margin: 19px 0; font-size: 14px}.crumb a {color: var(--muted)}
-.hubgrid,.reading {display: grid; grid-template-columns: minmax(0,1fr) minmax(205px,260px); gap: clamp(28px,5vw,75px)}
-.hubgrid {margin-top: 34px}.other,.lesson-side {align-self: start; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px}
-.other h2,.side-title {font-size: 16px; font-weight: 700; margin: 0 0 10px}
-.other a {display: flex; gap: 8px; padding: 7px 0; color: var(--text); text-decoration: none}
-.toc,.lesson-side ol {list-style: none; margin: 0; padding: 0}
-.toc li {border-top: 1px solid var(--line)}.toc li:last-child {border-bottom: 1px solid var(--line)}
-.toc a {display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: start; gap: 15px; padding: 18px 5px; border-radius: 5px}
-.num {font-variant-numeric: tabular-nums; color: var(--accent); background: var(--tint); border-radius: 8px; min-width: 34px; text-align: center; padding: 5px 4px; font: 650 14px/1.55 ui-monospace,monospace}
-.toc strong,.abstract {display: block}.toc strong {font-size: 19px; letter-spacing: -.015em; line-height: 1.35}.abstract {font-size: 15px; margin-top: 4px}
-.reading {margin: 22px auto 0; max-width: 1040px}
-.column {min-width: 0}.reader-head {padding: 8px 0 25px; border-bottom: 1px solid var(--line); margin-bottom: 24px}
-.lesson-id {margin: 0 0 15px; gap: 10px; font-weight: 650; color: var(--accent); font-size: 14px}.lesson-id .chip {width: 33px; height: 33px; border-radius: 9px; font-size: 17px}
-.reader-head h1 {font-size: clamp(32px,4.3vw,52px)}
-.reader-head > p:last-child {margin: 14px 0 0; font-size: 19px; line-height: 1.48; color: var(--muted)}
-.reader {font-size: 18px; line-height: 1.7; overflow-wrap: break-word}.reader h2 {font-size: 24px; margin-bottom: 10px}
-.reader p {margin: 0 0 14px}.reader section {margin: 26px 0}.reader ul,.reader ol {padding-left: 1.4em}
-.reader code {font: .9em ui-monospace,Consolas,monospace; background: var(--soft); padding: .06em .2em; border-radius: 4px}
-.reader pre {white-space: pre-wrap; overflow-wrap: anywhere}
-.examples {display: grid; gap: 0; margin: 12px 0 18px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden}
-.examples > div {padding: 12px 15px; background: var(--paper)}
-.examples > div + div {border-top: 1px solid var(--line)}
-.examples dt {font-size: 15px; color: var(--accent); font-weight: 700}
-.examples dd {margin: 3px 0 0; line-height: 1.55}
-.exercise,.tool {background: var(--tint); border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0; padding: 18px 20px; margin: 24px 0}
-.exercise h2,.tool h2 {font-size: 19px;color: var(--accent)}.exercise p:last-child,.tool p:last-child {margin-bottom: 0}
-.answer,.sources {border: 1px solid var(--line); border-radius: 10px; margin: 14px 0; font-size: 15px}
-summary {padding: 12px 14px; cursor: pointer; font-weight: 650;color: var(--link)}
-.answer p,.sources a {margin: 2px 14px 12px}.sources a {display: block}
-.tool label,.fields {display: grid; gap: 7px}.fields {grid-template-columns: repeat(3,1fr); font-size: 14px}
-.fields input {min-width: 0; width: 100%; padding: 7px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--text)}
-#budget {display: block; font-weight: 650; margin: 10px 0}.tool .download {display: inline-block; font-size: 15px}
-.turn {display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid var(--line); margin-top: 28px; padding-top: 19px}
-.nextlink {display: grid; max-width: 80%; text-decoration: none; text-align: right}.nextlink small {color: var(--muted)}.back {font-size: 14px}
-.side-title {display: block; color: var(--text); text-decoration: none}.lesson-side li a {display: flex; gap: 9px; border-radius: 7px; padding: 7px 8px; color: var(--muted); text-decoration: none; font-size: 14px; line-height: 1.42}.lesson-side li a span {font-variant-numeric: tabular-nums}
-.lesson-side [aria-current=page] {background: var(--tint); color: var(--accent); font-weight: 650}
-.footer {border-top: 1px solid var(--line); margin-top: 48px; min-height: 76px; padding-block: 16px; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 14px}
-@media (hover:hover) {
- .chapter-card:hover,.resources a:hover,.toc a:hover,.theme:hover {background: var(--tint); border-color: var(--accent)}
- .other a:hover,.lesson-side a:hover,.nextlink:hover,.brand:hover {color: var(--accent);text-decoration: underline}
+* {box-sizing:border-box}
+html {scroll-padding-top:1.1rem}
+body {margin:0;background:var(--bg);color:var(--text);font:17px/1.55 "Segoe UI",system-ui,sans-serif}
+a {color:var(--accent);text-decoration-thickness:1px;text-underline-offset:.2em}
+a:hover {text-decoration:underline}
+:focus-visible {outline:3px solid var(--key);outline-offset:3px}
+.shell {max-width:1080px;width:calc(100% - 64px);margin-inline:auto}
+.bar {background:var(--bg);border-top:3px solid var(--accent);border-bottom:1px solid var(--line)}
+.bar-in {display:flex;justify-content:space-between;gap:12px;align-items:center;min-height:56px}
+.sitename {font-weight:650;text-decoration:none;color:var(--navy);letter-spacing:-.015em}
+.theme {font:inherit;font-size:14px;display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:6px;color:var(--muted);border:1px solid var(--line);background:var(--bg);cursor:pointer;min-height:36px}
+.mode-icon {font-size:17px;line-height:1}
+[hidden]{display:none!important}
+.skip {position:absolute;top:-100px;left:1rem;padding:.5rem;background:var(--bg);z-index:3}
+.skip:focus {top:5px}
+main {padding:28px 0 64px}
+.trail {display:flex;align-items:center;flex-wrap:wrap;gap:9px;color:var(--muted);font-size:14px;margin:0 0 24px}
+.trail a {color:var(--muted)}
+.layout {display:grid;grid-template-columns:minmax(0,680px) minmax(185px,245px);gap:clamp(36px,7vw,94px);justify-content:space-between}
+.readcol,.layout aside {min-width:0}
+.bookhead {margin:0 0 25px}
+.folio {color:var(--accent);font-weight:700;font-size:13px;letter-spacing:.045em;margin:0 0 9px}
+h1,h2,h3 {color:var(--heading);text-wrap:balance}
+h1 {font-size:clamp(32px,3.8vw,47px);line-height:1.13;font-weight:680;letter-spacing:-.04em;margin:0}
+h2 {letter-spacing:-.025em;font-size:26px;line-height:1.25;font-weight:680;margin:0 0 13px}
+.lead,.bodytext {font-size:19px;line-height:1.64;letter-spacing:0}
+.lead {margin:15px 0 0;max-width:64ch}
+.booknav {border-left:1px solid var(--line);padding-left:17px;position:sticky;top:20px;font-size:15px}
+.booknav p {font-size:14px;font-weight:700;margin:2px 0 12px;color:var(--heading)}
+.booknav p a,.booknav>a {color:inherit;text-decoration:none}
+.booknav>a {display:flex;gap:10px;padding:8px 9px;margin-left:-9px;line-height:1.4;color:var(--muted);border-radius:4px}
+.indexno {color:var(--key);font-variant-numeric:tabular-nums;font-size:.87em;font-weight:650}
+.booknav>a[aria-current] {background:var(--pale);color:var(--accent);font-weight:650}
+.booknav>a:hover,.booknav p a:hover {text-decoration:underline}
+.localtoc {border-left:3px solid var(--edge);padding:5px 0 5px 16px;margin:0 0 30px}
+.localtoc b {display:block;font-size:14px;color:var(--muted);margin:0 0 5px}
+.localtoc ol {list-style:none;padding:0;margin:0;display:grid;gap:3px}
+.localtoc a {font-size:16px}
+.bodytext {max-width:66ch;overflow-wrap:break-word}
+.part {margin:0 0 28px;padding-top:21px;border-top:1px solid var(--line)}
+.part h2 {margin-bottom:12px}
+.part p,.part ul,.part ol {margin:0 0 14px}
+.part p:last-child,.part ul:last-child,.part ol:last-child {margin-bottom:0}
+.part ul,.part ol {padding-left:1.4em}
+.part li {padding-left:.12em;margin:0 0 9px}
+.part li::marker {color:var(--accent);font-weight:650}
+.part code {font: .88em ui-monospace,Consolas,monospace;color:var(--navy);background:var(--soft);padding:1px 4px;border-radius:3px}
+.worked {padding:13px 17px;border-left:3px solid var(--edge);background:var(--soft);border-radius:0 5px 5px 0;margin:13px 0;font-size:.95em}
+.worked p {margin:0 0 7px}
+.reference,.filelinks,.download {font-size:15px}
+.reference {padding-top:5px;color:var(--muted)}
+.filelinks {display:flex;flex-wrap:wrap;gap:8px 15px}
+.tablebox {margin:16px 0}
+table {border-collapse:collapse;width:100%;font-size:15px;line-height:1.45;font-variant-numeric:tabular-nums}
+caption {text-align:left;color:var(--muted);margin-bottom:7px}
+th,td {text-align:center;border-bottom:1px solid var(--line);padding:6px 8px}
+th:first-child {text-align:left}tbody th {font-weight:450}
+thead,tfoot {background:var(--soft);color:var(--navy)}tfoot td{font-weight:650}
+.fields {display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tool {border-radius:6px;border:1px solid var(--line);background:var(--soft);padding:16px}
+.fields label {font-size:14px;color:var(--muted);display:grid;gap:4px}
+.fields input {width:100%;min-width:0;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--edge);border-radius:5px;padding:7px}
+#budget {display:block;margin:12px 0 4px;font-weight:650;color:var(--heading)}
+.turn {margin-top:28px;padding-top:16px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.turn a {text-decoration:none;font-size:16px;line-height:1.4}.turn a:hover{text-decoration:underline}.turn a:last-child{text-align:right}
+.turn small {display:block;color:var(--muted);font-size:12px;margin-bottom:5px}
+.homegrid {max-width:850px;margin:28px 0 35px}
+.homechapter {display:grid;grid-template-columns:40px 1fr;align-items:baseline;gap:18px;padding:19px 0;border-top:1px solid var(--line)}
+.homechapter h2 {font-size:25px;margin:0 0 4px}.homechapter h2 a {text-decoration:none;color:var(--heading)}.homechapter h2 a:hover{text-decoration:underline;color:var(--accent)}
+.homechapter p,.materials p {margin:0;color:var(--muted)}
+.chapter-num {align-self:start;text-align:center;color:var(--accent);background:var(--pale);font-weight:650;font-size:15px;padding:6px 2px;border-radius:5px;font-variant-numeric:tabular-nums}
+.materials {max-width:850px;border-top:1px solid var(--line);padding-top:18px}.materials h2,.lesson-directory h2 {font-size:21px}
+.lesson-list {list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.lesson-list li {border-bottom:1px solid var(--line)}
+.lesson-list a {display:grid;align-items:baseline;grid-template-columns:32px 1fr auto;gap:9px;padding:14px 3px;text-decoration:none;color:var(--heading);font-weight:600;font-size:18px;line-height:1.4}
+.lesson-list a:hover span:nth-child(2){text-decoration:underline;color:var(--accent)}
+.arrow {color:var(--key)}
+@media(max-width:850px){
+ .layout{grid-template-columns:minmax(0,1fr);gap:28px;max-width:700px;margin-inline:auto}
+ .layout aside{display:none}.shell{max-width:720px;width:calc(100% - 44px)}
 }
-@media (max-width:790px) {
- .shell {width: min(100% - 36px,700px)}.hubgrid,.reading {grid-template-columns: minmax(0,1fr);gap: 26px}
- .lesson-side {display: none}.chapters {gap: 9px}.chapter-card {padding: 14px;gap: 10px}.card-copy strong {font-size: 18px}
- .inner-mast,.home-mast {grid-template-columns: minmax(0,1fr) 24%}.orbit {width: 182px}.spark {display: none}
+@media(max-width:570px){
+ .shell{width:calc(100% - 36px)}.bar-in{min-height:50px}.sitename{font-size:15px}.theme{font-size:12px;padding:5px 7px}
+ main{padding:18px 0 36px}.trail{margin-bottom:18px;font-size:13px}.bookhead{margin-bottom:20px}
+ h1{font-size:32px;line-height:1.14}.folio{font-size:12px;margin-bottom:6px}
+ .lead,.bodytext{font-size:17px;line-height:1.62}.lead{margin-top:11px}
+ .part{padding-top:17px;margin-bottom:21px}.part h2{font-size:22px}.localtoc{margin-bottom:21px;padding-left:12px}
+ .localtoc li>a{display:inline-block;line-height:1.45;padding:3px 0}.localtoc ol{gap:0}
+ .fields{grid-template-columns:1fr}.part li{margin-bottom:8px}.turn{gap:10px}.turn a{font-size:14px}
+ .homegrid{margin:22px 0}.homechapter{gap:10px;grid-template-columns:32px 1fr;padding:14px 0}.homechapter h2{font-size:21px}.homechapter p{font-size:15px}
+ th,td{padding:5px 3px}table{font-size:13px}.worked{padding:11px 12px}.lesson-list a{font-size:16px}
 }
-@media (max-width:570px) {
- .shell {width: calc(100% - 28px)}.topin {min-height: 56px}.brand {gap: 7px;font-size: 15px}.theme {font-size: 13px;padding: 5px 10px}
- .home-mast,.inner-mast {grid-template-columns: minmax(0,1fr); padding: 25px 19px; border-radius: 16px;min-height: 0}
- .home-mast {margin-top: 16px}.cover-art {display: none}.home-mast .cover-art {display: block;position: absolute;top: 41px;right: 6px;width: 83px;height: 110px;opacity: .84;z-index: -1}
- .home-mast .book {width: 49px;height: 67px}.home-mast .book-front {padding: 8px}.home-mast .book-front b {font-size: 19px}.home-mast .book-front:before {inset: 4px}.home-mast .orbit {width: 100px;height: 50px}
- .overline {font-size: 10px;letter-spacing: .07em}.home-mast h1 {font-size: clamp(32px,8.8vw,46px);max-width: 76%}.inner-mast h1 {font-size: clamp(26px,7.2vw,40px);overflow-wrap: anywhere}
- .paper-btn {margin-top: 16px;padding: 8px 14px}.intro {margin-top: 12px}
- .chapters,.resources {grid-template-columns: 1fr}.catalog,.resource-area {margin-top: 26px}.section-head {gap: 5px 12px}
- .section-head > span {font-size: 13px}.crumb {font-size: 13px;margin: 14px 0}.hubgrid {margin-top: 24px}
- .toc a {gap: 10px;padding: 15px 0}.toc strong {font-size: 17px}.abstract {font-size: 14px}
- .reader {font-size: 17px;line-height: 1.63}.reader h2 {font-size: 22px}.reader-head > p:last-child {font-size: 17px}
- .reader-head {padding-top: 0;padding-bottom: 19px}.reader-head h1 {font-size: 33px}.reading {margin-top: 15px}
- .exercise,.tool {padding: 15px}.exercise h2,.tool h2 {font-size: 18px}.fields {grid-template-columns: 1fr}
- .nextlink {max-width: 74%;line-height: 1.35}.footer {margin-top: 32px;font-size: 12px}
-}
-@media (max-width:360px) {.brand-sub {display: none}.home-mast .cover-art {right: 1px}}
+@media print {.bar,.trail,.booknav,.turn,.localtoc,.skip {display:none}.layout{display:block}.shell{width:100%}.bodytext,.lead{font-size:12pt;color:black}.part{break-inside:avoid}}
