@@ -1,5 +1,6 @@
 # Preserve packaged teaching documents byte for byte.
 pearl-preview/files/* -text
+pearl-preview/files/** -text
 pearl-preview/files/*.pdf binary
 pearl-preview/files/*.docx binary
 pearl-preview/files/*.pptx binary
