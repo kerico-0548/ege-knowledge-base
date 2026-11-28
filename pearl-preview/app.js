@@ -68,7 +68,7 @@ const shortCaseTitles={
 };
 
 function caseTab(x){
-  if(x.examDate)return {short:x.sourceType==='retake'?'Перес '+x.examDate.slice(0,5):'Осн '+x.examDate.slice(0,5),year:'2026',full:x.source};
+  if(x.examDate)return {short:x.sourceType==='retake'?'Перес '+x.examDate.slice(0,5):'Осн '+x.examDate.slice(0,5),year:String(x.year||x.examDate.slice(-4)),full:x.source};
   const number=[x.title,x.source,x.original].map(s=>s?.match(/(?:^|КОМПЕГЭ\s+)№\s*(\d+(?:_\d+|[a-c])?)/iu)?.[1]).find(Boolean)
     ||x.id.match(/^fipi\d{4}_(\d+[a-c]?)$/i)?.[1] ||x.id.match(/^fipi_(?:demo|open)\d{4}_(\d+(?:_\d+|[a-c])?)$/i)?.[1]
     ||x.id.match(/^kerya_24_(\d+)$/)?.[1];
